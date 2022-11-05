@@ -14,8 +14,10 @@ const store = proxy({
   }
 );
 
+// NOTE compilation error
 const derived = derive({
   userWithTimestamp: (get) => `${get(store).user} (${Date.now()})`,
+  serWithTimestamp2: (get) => `${derived.userWithTimestamp} (${Date.now()})`,
 }, {
   proxy: store,
 })
