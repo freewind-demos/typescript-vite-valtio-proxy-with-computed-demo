@@ -5,6 +5,7 @@ specifiers:
   '@types/react': 17.0.30
   '@types/react-dom': 17.0.9
   '@vitejs/plugin-react': 1.0.4
+  proxy-memoize: ^1.2.0
   react: 17.0.2
   react-dom: 17.0.2
   ts-node: 10.3.0
@@ -14,6 +15,7 @@ specifiers:
   vite-plugin-html-template: 1.0.6
 
 dependencies:
+  proxy-memoize: 1.2.0
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   ts-node: 10.3.0_anqydb32qpwzcorlx3enzr2dkq
@@ -834,7 +836,12 @@ packages:
 
   /proxy-compare/2.3.0:
     resolution: {integrity: sha512-c3L2CcAi7f7pvlD0D7xsF+2CQIW8C3HaYx2Pfgq8eA4HAl3GAH6/dVYsyBbYF/0XJs2ziGLrzmz5fmzPm6A0pQ==}
-    dev: true
+
+  /proxy-memoize/1.2.0:
+    resolution: {integrity: sha512-0heYEZb4yMfhdduz8T+BPJOCKGukc81WRJaYF0k6ZsJz/NkPLhGFqe6OLdiZURr5kC1byps5wdqLN6DC2tYAFw==}
+    dependencies:
+      proxy-compare: 2.3.0
+    dev: false
 
   /react-dom/17.0.2_react@17.0.2:
     resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}

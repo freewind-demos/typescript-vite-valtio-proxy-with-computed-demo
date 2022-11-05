@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
 import './Hello.pcss';
 import {proxy, useSnapshot} from 'valtio';
-import {derive} from 'valtio/utils';
+import {derive, proxyWithComputed} from 'valtio/utils';
+import memorize from 'proxy-memoize'
 
 const store = proxy({
     user: 'AAA' as string,
@@ -14,19 +15,17 @@ const store = proxy({
   }
 );
 
-// NOTE compilation error
-const derived = derive({
-  userWithTimestamp: (get) => `${get(store).user} (${Date.now()})`,
-  serWithTimestamp2: (get) => `${derived.userWithTimestamp} (${Date.now()})`,
-}, {
-  proxy: store,
+const newStore = proxyWithComputed(store, {
+  userWithTimestamp: memorize((snapshot) => `${snapshot.user} (${Date.now()})`),
+  // NOTE: it's working in js, but ts typing doesn't allow it
+  serWithTimestamp2: memorize((memorize) => `${memorize.userWithTimestamp} (${Date.now()})`),
 })
 
 export const Hello: FC = () => {
-  const {user, userWithTimestamp} = useSnapshot(derived);
+  const {user, userWithTimestamp2} = useSnapshot(newStore);
 
   return <div className={'Hello'}>
-    <h1>Hello {userWithTimestamp}</h1>
+    <h1>Hello {userWithTimestamp2}</h1>
     <input type={'text'} value={user} onChange={(event) => store.changeName(event.target.value)}/>
   </div>;
 }
